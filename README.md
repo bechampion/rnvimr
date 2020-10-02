@@ -1,5 +1,15 @@
 # Rnvimr
 
+## Change default branch from master to main
+
+`vim-plug` support updating repo from the default branch for now.
+
+How to update rnvimr from now on?
+
+1. Run `PlugUpgrade` to upgrade vim-plug;
+2. Delete old rnvimr repo;
+3. Run `PlugInstall` to install rnivmr again;
+
 Rnvimr is a NeoVim plugin that allows you to use Ranger in a floating window.
 
 Different than other Ranger vim-plugins, Rnvimr gives you full control over Ranger.
