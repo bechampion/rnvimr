@@ -6,9 +6,11 @@
 
 How to update rnvimr from now on?
 
-1. Run `PlugUpgrade` to upgrade vim-plug;
+1. Run `:PlugUpgrade` to upgrade vim-plug;
 2. Delete old rnvimr repo;
-3. Run `PlugInstall` to install rnivmr again;
+3. Run `:PlugInstall` to install rnivmr again;
+
+> Install rnvimr by `Plug 'kevinhwang91/rnvimr'`.
 
 Rnvimr is a NeoVim plugin that allows you to use Ranger in a floating window.
 

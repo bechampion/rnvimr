@@ -83,6 +83,9 @@ function! rnvimr#resize(...) abort
 endfunction
 
 function! rnvimr#toggle() abort
+    echohl Error
+    echo 'master branch is deprecated, go to https://github.com/kevinhwang91/rnvimr/issues/50 for detail'
+    echohl
     let win_hd = rnvimr#context#get_win_handle()
     if rnvimr#context#get_buf_handle() != -1
         if win_hd != -1 && nvim_win_is_valid(win_hd)
