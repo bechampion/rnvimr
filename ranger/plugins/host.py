@@ -27,10 +27,9 @@ class Host():
         """
         # job start with pty option in neovim only use stdout to communicate
         if os.getenv('RNVIMR_CHECKHEALTH'):
-            print('RNVIMR_CHECKHEALTH', self.fm.host_id, 'RNVIMR_CHECKHEALTH')
-            self.nvim.call('rnvimr#rpc#set_host_chan_id', self.fm.host_id)
-        else:
-            self.nvim.call('rnvimr#rpc#set_host_chan_id', self.fm.host_id)
+            print('RNVIMR_CHECKHEALTH', self.fm.host_id, 'RNVIMR_CHECKHEALTH', flush=True)
+
+        self.nvim.call('rnvimr#rpc#set_host_chan_id', self.fm.host_id)
 
     def hook_ready(self):
         """

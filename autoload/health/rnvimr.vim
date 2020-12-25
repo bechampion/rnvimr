@@ -5,6 +5,7 @@ let s:os = ''
 function! s:system_handler(jobid, data, event) dict abort
     if a:event ==# 'stdout' && self.ranger_host_id == -1
         let out = join(a:data)
+        echom 'out: ' . out
         let host_id = str2nr(matchstr(out, 'RNVIMR_CHECKHEALTH \zs\d\+\ze RNVIMR_CHECKHEALTH'))
         if host_id > 0
             let self.ranger_host_id = host_id
@@ -101,6 +102,7 @@ function! s:check_rpc() abort
 
         let confdir = shellescape(s:rnvimr_path . '/ranger')
         let cmd = s:ranger_cmd . ' --confdir=' . confdir
+        echom 'cmd: ' . cmd
         let jobid = jobstart(cmd, opts)
 
         " jobwait doesn't work with pty option
