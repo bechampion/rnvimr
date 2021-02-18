@@ -26,7 +26,6 @@ def enhance_quit(commands, client):
             self.fm.tab_close()
         else:
             client.hide_window()
-            self.fm.execute_console('ClearImage')
 
     quit_cls.execute = execute
 

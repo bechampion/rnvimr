@@ -17,29 +17,10 @@ def enhance_draw_border(attr, client):
 
     UI.update_size = _update_size
 
-    _wrap_draw_border(attr)
-    _wrap_initialize_border(client)
-    _wrap_suspend_border(client)
+    _wrap_draw(attr)
+    _wrap_initialize(client)
+    _wrap_suspend(client)
 
-def skip_redraw():
-    """
-    Neovim close the floating window contained Ranger terminal buffer will prepare for executing
-    autocommands for hidden buffer.
-    It will allocate a dummy window to execute the hidden buffer,
-    the window make Curses produce a resize event.
-    Curses will resize again in next TermEnter event.
-
-    """
-    def draw(self):
-        #  TODO
-        #  For now, the dummy window's height is hardcode with 5,
-        #  maybe I should detect it elegantly latter.
-        y, _ = self.win.getmaxyx()
-        if y != 5:
-            raw_draw(self)
-
-    raw_draw = UI.draw
-    UI.draw = draw
 
 def wrap_update_size(views):
     """
@@ -92,7 +73,7 @@ def _update_size(self):
     self.console.resize(y, 1, 1, x)
 
 
-def _wrap_draw_border(attr):
+def _wrap_draw(attr):
     def draw(self):
         self.win.attrset(attr)
         self.win.border(curses.ACS_VLINE, curses.ACS_VLINE, curses.ACS_HLINE,
@@ -104,7 +85,7 @@ def _wrap_draw_border(attr):
     UI.draw = draw
 
 
-def _wrap_initialize_border(client):
+def _wrap_initialize(client):
     def initialize(self):
         client.set_winhl('curses_winhl')
         raw_initialize(self)
@@ -113,9 +94,9 @@ def _wrap_initialize_border(client):
     UI.initialize = initialize
 
 
-def _wrap_suspend_border(client):
+def _wrap_suspend(client):
     def suspend(self):
-        def check_destroy():
+        def check_destory():
             for displayable in self.container:
                 if displayable.win:
                     if hasattr(displayable, 'container'):
@@ -127,8 +108,8 @@ def _wrap_suspend_border(client):
             return True
 
         raw_suspend(self)
-        #  destroy don't restore the NormalFloat highlight
-        if not check_destroy():
+        #  destory don't restore the NormalFloat highlight
+        if not check_destory():
             client.set_winhl('normal_winhl')
 
     raw_suspend = UI.suspend
